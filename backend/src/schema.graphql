@@ -1,14 +1,53 @@
 type User {
   id: ID!
   name: String!
-  email: String!  
+  email: String!
+  password: String!  
+}
+
+type Product {
+  id: ID!
+  name: String!
+  description: String!
+  price: Int!
+  amount: Int!
+  storeId: String! 
+}
+
+type Store {
+  id:ID!
+  name: String!
+  email: String!
+  password: String!
+  
+  
+}
+
+input ProductInput {
+  id: ID!
 }
 
 type Query {
     users: [User!]!
-    user(id:ID!): User
+    user(id:ID!): [User!]!
+
+    loginUser(email:String!,password:String!): String
+    loginStore(email:String!,password:String!): String
+
+    getAllStore: [Store!]!
+    getStore(name:String!): [Store!]!
+
+    getAllProduct: [Product!]!
+    getProductById(id:ID!): Product
+    getProductByStore(storeId:String!): [Product!]!
+
+
+    
 }
 
 type Mutation {
     createUser(name: String!, email: String!): User
+    createStore(name: String!, email: String!, password: String!): Store
+    createProduct(name: String!, description: String!, price: Int!, amount: Int!, storeId: ID!): Product!
+    
 }
